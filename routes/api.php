@@ -25,4 +25,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     //Cost Center
     Route::resource('costCenter', 'CostCenterController');
 
+    //Currency
+    Route::resource('currency', 'CurrencyController');
+
 });
