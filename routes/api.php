@@ -28,4 +28,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     //Currency
     Route::resource('currency', 'CurrencyController');
 
+    //Currency Convection
+    Route::resource('currencyConvection', 'CurrencyConvectionController');
+
 });
