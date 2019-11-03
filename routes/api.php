@@ -31,4 +31,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     //Currency Convection
     Route::resource('currencyConvection', 'CurrencyConvectionController');
 
+    //Geolocation
+    Route::resource('geolocation', 'GeolocationController');
+
 });
