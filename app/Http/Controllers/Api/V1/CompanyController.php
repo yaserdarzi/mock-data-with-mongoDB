@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Exceptions\ApiException;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +17,7 @@ class CompanyController extends ApiController
      */
     public function index(Request $request)
     {
-        $company = DB::connection('mongodb')->collection('company');
-        $company = $company->get();
-        return $this->respond($company);
+        return $this->respond(DB::connection('mongodb')->collection('company')->get());
     }
 
     /**
@@ -39,6 +38,11 @@ class CompanyController extends ApiController
      */
     public function store(Request $request)
     {
+        if (DB::connection('mongodb')->collection('company')->where('code', $request->input('code'))->exists())
+            throw new ApiException(
+                ApiException::EXCEPTION_BAD_REQUEST_400,
+                'کاربر گرامی کد تکراری می باشد'
+            );
         return $this->respond(DB::connection('mongodb')->collection('company')->insertGetId($request->all()));
     }
 
@@ -73,6 +77,11 @@ class CompanyController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (DB::connection('mongodb')->collection('company')->where('_id', '!=', $id)->where('code', $request->input('code'))->exists())
+            throw new ApiException(
+                ApiException::EXCEPTION_BAD_REQUEST_400,
+                'کاربر گرامی کد تکراری می باشد'
+            );
         DB::connection('mongodb')->collection('company')->where('_id', $id)->update($request->all());
         return $this->respond('');
     }
