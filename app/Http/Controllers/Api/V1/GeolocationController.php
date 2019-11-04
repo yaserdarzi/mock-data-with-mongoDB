@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Exceptions\ApiException;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +17,7 @@ class GeolocationController extends ApiController
      */
     public function index(Request $request)
     {
-        $geolocation = DB::connection('mongodb')->collection('geolocation');
-        $geolocation = $geolocation->get();
-        return $this->respond($geolocation);
+        return $this->respond(DB::connection('mongodb')->collection('geolocation')->get());
     }
 
     /**
@@ -39,6 +38,11 @@ class GeolocationController extends ApiController
      */
     public function store(Request $request)
     {
+        if (DB::connection('mongodb')->collection('geolocation')->where('code', $request->input('code'))->exists())
+            throw new ApiException(
+                ApiException::EXCEPTION_BAD_REQUEST_400,
+                'کاربر گرامی کد تکراری می باشد'
+            );
         return $this->respond(DB::connection('mongodb')->collection('geolocation')->insertGetId($request->all()));
     }
 
@@ -73,6 +77,11 @@ class GeolocationController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (DB::connection('mongodb')->collection('geolocation')->where('_id', '!=', $id)->where('code', $request->input('code'))->exists())
+            throw new ApiException(
+                ApiException::EXCEPTION_BAD_REQUEST_400,
+                'کاربر گرامی کد تکراری می باشد'
+            );
         DB::connection('mongodb')->collection('geolocation')->where('_id', $id)->update($request->all());
         return $this->respond('');
     }
