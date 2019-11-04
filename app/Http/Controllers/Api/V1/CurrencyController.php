@@ -38,11 +38,6 @@ class CurrencyController extends ApiController
      */
     public function store(Request $request)
     {
-        if (DB::connection('mongodb')->collection('currency')->where('code', $request->input('code'))->exists())
-            throw new ApiException(
-                ApiException::EXCEPTION_BAD_REQUEST_400,
-                'کاربر گرامی کد تکراری می باشد'
-            );
         return $this->respond(DB::connection('mongodb')->collection('currency')->insertGetId($request->all()));
     }
 
@@ -77,11 +72,6 @@ class CurrencyController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (DB::connection('mongodb')->collection('currency')->where('_id', '!=', $id)->where('code', $request->input('code'))->exists())
-            throw new ApiException(
-                ApiException::EXCEPTION_BAD_REQUEST_400,
-                'کاربر گرامی کد تکراری می باشد'
-            );
         DB::connection('mongodb')->collection('currency')->where('_id', $id)->update($request->all());
         return $this->respond('');
     }
