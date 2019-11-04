@@ -177,6 +177,7 @@ return [
 
         //customize
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
 
     ],
