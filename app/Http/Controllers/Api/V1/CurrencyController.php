@@ -17,7 +17,15 @@ class CurrencyController extends ApiController
      */
     public function index(Request $request)
     {
-        return $this->respond(DB::connection('mongodb')->collection('currency')->get());
+        $currency = DB::connection('mongodb')->collection('currency');
+        if ($request->input('search')) {
+            $search = $request->input('search');
+            $currency = $currency->where('title', 'LIKE', "%$search%");
+        }
+        if ($request->input('except'))
+            $currency = $currency->where('title', '!=', $request->input('except'));
+        $currency = $currency->get();
+        return $this->respond($currency);
     }
 
     /**

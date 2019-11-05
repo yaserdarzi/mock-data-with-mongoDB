@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Exceptions\ApiException;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +17,7 @@ class CurrencyConvectionController extends ApiController
      */
     public function index(Request $request)
     {
-        $currencyConvection = DB::connection('mongodb')->collection('currencyConvection');
-        $currencyConvection = $currencyConvection->get();
-        return $this->respond($currencyConvection);
+        return $this->respond(DB::connection('mongodb')->collection('currencyConvection')->get());
     }
 
     /**
@@ -39,6 +38,11 @@ class CurrencyConvectionController extends ApiController
      */
     public function store(Request $request)
     {
+        if (DB::connection('mongodb')->collection('currencyConvection')->where(['date' => $request->input('date'), 'baseCurrency' => $request->input('baseCurrency'), 'currency' => $request->input('currency')])->exists())
+            throw new ApiException(
+                ApiException::EXCEPTION_BAD_REQUEST_400,
+                'کاربر گرامی تاریخ تکراری می باشد'
+            );
         return $this->respond(DB::connection('mongodb')->collection('currencyConvection')->insertGetId($request->all()));
     }
 
@@ -73,6 +77,11 @@ class CurrencyConvectionController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (DB::connection('mongodb')->collection('currencyConvection')->where('_id', '!=', $id)->where(['date' => $request->input('date'), 'baseCurrency' => $request->input('baseCurrency'), 'currency' => $request->input('currency')])->exists())
+            throw new ApiException(
+                ApiException::EXCEPTION_BAD_REQUEST_400,
+                'کاربر گرامی کد تکراری می باشد'
+            );
         DB::connection('mongodb')->collection('currencyConvection')->where('_id', $id)->update($request->all());
         return $this->respond('');
     }
