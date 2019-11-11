@@ -94,7 +94,7 @@ class CompanyController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        DB::connection('mongodb')->collection('company')->where('_id', $id)->delete();
+        DB::connection('mongodb')->collection('company')->where('code', $id)->delete();
         return $this->respond('');
     }
 
