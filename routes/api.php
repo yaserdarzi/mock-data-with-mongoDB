@@ -50,5 +50,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     //Geolocation
     Route::resource('geolocation', 'GeolocationController');
 
+    //Geolocation
+    Route::resource('financialPeriod', 'FinancialPeriodController');
+
 });
-//            , '', '', '', '', '', '', '', ' ', ''
