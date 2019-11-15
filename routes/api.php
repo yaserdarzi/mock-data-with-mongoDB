@@ -64,6 +64,24 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($titleId);
     });
+    Route::get('person/nationalityId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'ایران'],
+            ['id' => 2, 'title' => 'آمریکا'],
+            ['id' => 3, 'title' => 'هلند'],
+            ['id' => 4, 'title' => 'اکراین'],
+        ];
+        return response()->json($titleId);
+    });
+    Route::get('person/citizenshipId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'ایران'],
+            ['id' => 2, 'title' => 'آمریکا'],
+            ['id' => 3, 'title' => 'هلند'],
+            ['id' => 4, 'title' => 'اکراین'],
+        ];
+        return response()->json($titleId);
+    });
     Route::get('person/birthPlaceId', function () {
         $titleId = [
             ['id' => 1, 'title' => 'ایران'],

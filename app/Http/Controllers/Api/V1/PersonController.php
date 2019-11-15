@@ -94,7 +94,7 @@ class PersonController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        DB::connection('mongodb')->collection('person')->where('_id', $id)->delete();
+        DB::connection('mongodb')->collection('person')->where('code', $id)->delete();
         return $this->respond('');
     }
 

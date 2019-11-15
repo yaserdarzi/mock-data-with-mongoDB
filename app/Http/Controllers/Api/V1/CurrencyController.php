@@ -92,7 +92,7 @@ class CurrencyController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        DB::connection('mongodb')->collection('currency')->where('_id', $id)->delete();
+        DB::connection('mongodb')->collection('currency')->where('title', $id)->delete();
         return $this->respond('');
     }
 
