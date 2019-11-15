@@ -91,7 +91,7 @@ class FinancialPeriodController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        DB::connection('mongodb')->collection('financialPeriod')->where('_id', $id)->delete();
+        DB::connection('mongodb')->collection('financialPeriod')->where('title', $id)->delete();
         return $this->respond('');
     }
 
