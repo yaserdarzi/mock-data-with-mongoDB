@@ -17,6 +17,71 @@ use Illuminate\Http\Request;
 Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
 
     //person
+    Route::get('person/titleId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'آقا'],
+            ['id' => 2, 'title' => 'خانم'],
+        ];
+        return response()->json($titleId);
+    });
+    Route::get('person/genderId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'مرد'],
+            ['id' => 2, 'title' => 'زن'],
+        ];
+        return response()->json($titleId);
+    });
+    Route::get('person/religionId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'اسلام'],
+            ['id' => 2, 'title' => 'زرتشت'],
+            ['id' => 3, 'title' => 'مسیحیت'],
+            ['id' => 4, 'title' => 'یهودیت'],
+        ];
+        return response()->json($titleId);
+    });
+    Route::get('person/religionBranchId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'شیعه'],
+            ['id' => 2, 'title' => 'سنی'],
+        ];
+        return response()->json($titleId);
+    });
+    Route::get('person/educationId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'زیر دیپلم'],
+            ['id' => 2, 'title' => 'دیپلم'],
+            ['id' => 3, 'title' => 'لیسانس'],
+            ['id' => 4, 'title' => 'فوق لیسانس'],
+            ['id' => 5, 'title' => 'دکترا'],
+        ];
+        return response()->json($titleId);
+    });
+    Route::get('person/maritalStatusId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'مجرد'],
+            ['id' => 2, 'title' => 'متاهل'],
+        ];
+        return response()->json($titleId);
+    });
+    Route::get('person/birthPlaceId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'ایران'],
+            ['id' => 2, 'title' => 'آمریکا'],
+            ['id' => 3, 'title' => 'هلند'],
+            ['id' => 4, 'title' => 'اکراین'],
+        ];
+        return response()->json($titleId);
+    });
+    Route::get('person/birthPlaceCreateId', function () {
+        $titleId = [
+            ['id' => 1, 'title' => 'ایران'],
+            ['id' => 2, 'title' => 'آمریکا'],
+            ['id' => 3, 'title' => 'هلند'],
+            ['id' => 4, 'title' => 'اکراین'],
+        ];
+        return response()->json($titleId);
+    });
     Route::resource('person', 'PersonController');
 
     //Company
