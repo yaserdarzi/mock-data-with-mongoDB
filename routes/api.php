@@ -305,4 +305,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     //Geolocation
     Route::resource('financialPeriod', 'FinancialPeriodController');
 
+    //Ledger
+    Route::resource('ledger', 'LedgerController');
+
 });
