@@ -125,7 +125,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     Route::resource('costCenter', 'CostCenterController');
 
     //Currency
-    Route::get('currency/floatNumbersList', function () {
+    Route::get('currency/symbolId', function () {
         $signsList = [
             ['id' => 1, 'title' => '₽'],
             ['id' => 2, 'title' => '؋'],
@@ -196,7 +196,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($signsList);
     });
-    Route::get('currency/subCurrencyList', function () {
+    Route::get('currency/subUnitTitleId', function () {
         $subCurrencyList = [
             ['id' => 1, 'title' => 'سنت'],
             ['id' => 2, 'title' => 'کپک'],
@@ -265,7 +265,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($subCurrencyList);
     });
-    Route::get('company/abbreviationList', function () {
+    Route::get('currency/abbreviationId', function () {
         $abbreviationList = [
             ['id' => 1, 'title' => 'USD'],
             ['id' => 2, 'title' => 'AUD'],
@@ -286,7 +286,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($abbreviationList);
     });
-    Route::get('company/roundList', function () {
+    Route::get('currency/roundMethodTypeId', function () {
         $roundList = [
             ['id' => 1, 'title' => 'گرد گردن به سمت بالا'],
             ['id' => 2, 'title' => 'گرد کردن به سمت پایین'],
