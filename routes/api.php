@@ -17,21 +17,21 @@ use Illuminate\Http\Request;
 Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
 
     //person
-    Route::get('person/titleId', function () {
+    Route::get('People/subject/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'آقا'],
             ['id' => 2, 'title' => 'خانم'],
         ];
         return response()->json($titleId);
     });
-    Route::get('person/genderId', function () {
+    Route::get('People/gender/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'مرد'],
             ['id' => 2, 'title' => 'زن'],
         ];
         return response()->json($titleId);
     });
-    Route::get('person/religionId', function () {
+    Route::get('People/religion/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'اسلام'],
             ['id' => 2, 'title' => 'زرتشت'],
@@ -40,14 +40,14 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($titleId);
     });
-    Route::get('person/religionBranchId', function () {
+    Route::get('People/religionBranch/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'شیعه'],
             ['id' => 2, 'title' => 'سنی'],
         ];
         return response()->json($titleId);
     });
-    Route::get('person/educationId', function () {
+    Route::get('People/educationLevel/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'زیر دیپلم'],
             ['id' => 2, 'title' => 'دیپلم'],
@@ -57,14 +57,14 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($titleId);
     });
-    Route::get('person/maritalStatusId', function () {
+    Route::get('People/maritalStatus/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'مجرد'],
             ['id' => 2, 'title' => 'متاهل'],
         ];
         return response()->json($titleId);
     });
-    Route::get('person/nationalityId', function () {
+    Route::get('People/nationality/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'ایران'],
             ['id' => 2, 'title' => 'آمریکا'],
@@ -73,7 +73,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($titleId);
     });
-    Route::get('person/citizenshipId', function () {
+    Route::get('People/citizenship/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'ایران'],
             ['id' => 2, 'title' => 'آمریکا'],
@@ -82,7 +82,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($titleId);
     });
-    Route::get('person/birthPlaceId', function () {
+    Route::get('People/birthPlace/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'ایران'],
             ['id' => 2, 'title' => 'آمریکا'],
@@ -91,7 +91,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($titleId);
     });
-    Route::get('person/birthPlaceCreateId', function () {
+    Route::get('People/birhplaceIssuePlace/list', function () {
         $titleId = [
             ['id' => 1, 'title' => 'ایران'],
             ['id' => 2, 'title' => 'آمریکا'],
@@ -100,10 +100,10 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($titleId);
     });
-    Route::resource('person', 'PersonController');
+    Route::resource('People', 'PersonController');
 
     //Company
-    Route::get('company/type', function () {
+    Route::get('Organizations/type', function () {
         $companyType = [
             ['id' => 1, 'title' => 'سهامی عام'],
             ['id' => 2, 'title' => 'سهامی خاص'],
@@ -119,13 +119,13 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($companyType);
     });
-    Route::resource('company', 'CompanyController');
+    Route::resource('Organizations', 'CompanyController');
 
     //Cost Center
     Route::resource('costCenter', 'CostCenterController');
 
     //Currency
-    Route::get('currency/symbolId', function () {
+    Route::get('Currencies/symbol/list', function () {
         $signsList = [
             ['id' => 1, 'title' => '₽'],
             ['id' => 2, 'title' => '؋'],
@@ -196,7 +196,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($signsList);
     });
-    Route::get('currency/subUnitTitleId', function () {
+    Route::get('Currencies/subUnitTitle/list', function () {
         $subCurrencyList = [
             ['id' => 1, 'title' => 'سنت'],
             ['id' => 2, 'title' => 'کپک'],
@@ -265,7 +265,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($subCurrencyList);
     });
-    Route::get('currency/abbreviationId', function () {
+    Route::get('Currencies/abbreviation/list', function () {
         $abbreviationList = [
             ['id' => 1, 'title' => 'USD'],
             ['id' => 2, 'title' => 'AUD'],
@@ -286,7 +286,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($abbreviationList);
     });
-    Route::get('currency/roundMethodTypeId', function () {
+    Route::get('Currencies/roundingMethod/list', function () {
         $roundList = [
             ['id' => 1, 'title' => 'گرد گردن به سمت بالا'],
             ['id' => 2, 'title' => 'گرد کردن به سمت پایین'],
@@ -294,7 +294,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         ];
         return response()->json($roundList);
     });
-    Route::resource('currency', 'CurrencyController');
+    Route::resource('Currencies', 'CurrencyController');
 
     //Currency Convection
     Route::resource('currencyConvection', 'CurrencyConvectionController');
@@ -303,9 +303,9 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     Route::resource('geolocation', 'GeolocationController');
 
     //Geolocation
-    Route::resource('financialPeriod', 'FinancialPeriodController');
+    Route::resource('FinancialPeriods', 'FinancialPeriodController');
 
     //Ledger
-    Route::resource('ledger', 'LedgerController');
+    Route::resource('Ledgers', 'LedgerController');
 
 });
