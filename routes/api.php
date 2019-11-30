@@ -121,9 +121,6 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     });
     Route::resource('Organizations', 'CompanyController');
 
-    //Cost Center
-    Route::resource('costCenter', 'CostCenterController');
-
     //Currency
     Route::get('Currencies/symbol/list', function () {
         $signsList = [
@@ -307,5 +304,17 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
 
     //Ledger
     Route::resource('Ledgers', 'LedgerController');
+
+    //costCenter
+    Route::get('costCenter/types/list', function () {
+        $abbreviationList = [
+            ['id' => 1, 'title' => 'اداری'],
+            ['id' => 2, 'title' => 'تولیدی'],
+            ['id' => 3, 'title' => 'خدماتی'],
+            ['id' => 4, 'title' => 'پیمانکار خارجی'],
+        ];
+        return response()->json($abbreviationList);
+    });
+    Route::resource('costCenter', 'CostCenterController');
 
 });
