@@ -307,14 +307,17 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
 
     //costCenter
     Route::get('costCenter/types/list', function () {
-        $abbreviationList = [
+        $types = [
             ['id' => 1, 'title' => 'اداری'],
             ['id' => 2, 'title' => 'تولیدی'],
             ['id' => 3, 'title' => 'خدماتی'],
             ['id' => 4, 'title' => 'پیمانکار خارجی'],
         ];
-        return response()->json($abbreviationList);
+        return response()->json($types);
     });
     Route::resource('costCenter', 'CostCenterController');
+
+    //DetailAccountType
+    Route::resource('detailAccountType', 'DetailAccountTypeController');
 
 });
