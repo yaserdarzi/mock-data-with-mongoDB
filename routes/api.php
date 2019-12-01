@@ -296,10 +296,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     //Currency Convection
     Route::resource('currencyConvection', 'CurrencyConvectionController');
 
-    //Geolocation
-    Route::resource('geolocation', 'GeolocationController');
-
-    //Geolocation
+    //FinancialPeriods
     Route::resource('FinancialPeriods', 'FinancialPeriodController');
 
     //Ledger
@@ -319,5 +316,21 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
 
     //DetailAccountType
     Route::resource('detailAccountType', 'DetailAccountTypeController');
+
+    //DetailAccountType
+    Route::resource('detailAccount', 'DetailAccountController');
+
+    //Geolocation
+    Route::get('geolocation/levels/list', function () {
+        $types = [
+            ['id' => 1, 'title' => 'کشور'],
+            ['id' => 2, 'title' => 'استان'],
+            ['id' => 3, 'title' => 'شهر'],
+            ['id' => 4, 'title' => 'شهرستان'],
+            ['id' => 5, 'title' => 'منطقه'],
+        ];
+        return response()->json($types);
+    });
+    Route::resource('geolocation', 'GeolocationController');
 
 });
