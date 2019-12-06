@@ -303,7 +303,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     Route::resource('Ledgers', 'LedgerController');
 
     //costCenter
-    Route::get('costCenter/types/list', function () {
+    Route::get('costCenter/costcentertypes', function () {
         $types = [
             ['id' => 1, 'title' => 'اداری'],
             ['id' => 2, 'title' => 'تولیدی'],
@@ -332,5 +332,8 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
         return response()->json($types);
     });
     Route::resource('geolocation', 'GeolocationController');
+
+    //Project
+    Route::resource('project', 'ProjectController');
 
 });
