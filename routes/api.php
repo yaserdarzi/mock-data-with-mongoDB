@@ -336,4 +336,7 @@ Route::namespace('Api\V1')->prefix('/v1/')->group(function () {
     //Project
     Route::resource('project', 'ProjectController');
 
+    //VoucherType
+    Route::resource('voucherType', 'VoucherTypeController');
+
 });
