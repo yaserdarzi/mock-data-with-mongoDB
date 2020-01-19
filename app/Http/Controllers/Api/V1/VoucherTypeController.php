@@ -37,7 +37,9 @@ class VoucherTypeController extends ApiController
      */
     public function store(Request $request)
     {
-        return $this->respond(DB::connection('mongodb')->collection('voucherType')->insertGetId($request->all()));
+        $data = $request->all();
+        $data['id'] = (string)(DB::connection('mongodb')->collection('voucherType')->count() + 1);
+        return $this->respond(DB::connection('mongodb')->collection('voucherType')->insertGetId($data));
     }
 
     /**
@@ -48,7 +50,7 @@ class VoucherTypeController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        return $this->respond(DB::connection('mongodb')->collection('voucherType')->where('_id', $id)->first());
+        return $this->respond(DB::connection('mongodb')->collection('voucherType')->where('id', $id)->first());
     }
 
     /**
@@ -71,7 +73,7 @@ class VoucherTypeController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        DB::connection('mongodb')->collection('voucherType')->where('_id', $id)->update($request->all());
+        DB::connection('mongodb')->collection('voucherType')->where('id', $id)->update($request->all());
         return $this->respond('');
     }
 
@@ -83,7 +85,7 @@ class VoucherTypeController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        DB::connection('mongodb')->collection('voucherType')->where('code', $id)->delete();
+        DB::connection('mongodb')->collection('voucherType')->where('id', $id)->delete();
         return $this->respond('');
     }
 

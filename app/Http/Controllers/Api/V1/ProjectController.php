@@ -43,6 +43,8 @@ class ProjectController extends ApiController
                 ApiException::EXCEPTION_BAD_REQUEST_400,
                 'کاربر گرامی کد تکراری می باشد'
             );
+        $data = $request->all();
+        $data['id'] = (string)(DB::connection('mongodb')->collection('project')->count() + 1);
         return $this->respond(DB::connection('mongodb')->collection('project')->insertGetId($request->all()));
     }
 
@@ -54,7 +56,7 @@ class ProjectController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        return $this->respond(DB::connection('mongodb')->collection('project')->where('_id', $id)->first());
+        return $this->respond(DB::connection('mongodb')->collection('project')->where('id', $id)->first());
     }
 
     /**
@@ -77,12 +79,12 @@ class ProjectController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (DB::connection('mongodb')->collection('project')->where('_id', '!=', $id)->where('code', $request->input('code'))->exists())
+        if (DB::connection('mongodb')->collection('project')->where('id', '!=', $id)->where('code', $request->input('code'))->exists())
             throw new ApiException(
                 ApiException::EXCEPTION_BAD_REQUEST_400,
                 'کاربر گرامی کد تکراری می باشد'
             );
-        DB::connection('mongodb')->collection('project')->where('_id', $id)->update($request->all());
+        DB::connection('mongodb')->collection('project')->where('id', $id)->update($request->all());
         return $this->respond('');
     }
 
@@ -94,7 +96,7 @@ class ProjectController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        DB::connection('mongodb')->collection('project')->where('code', $id)->delete();
+        DB::connection('mongodb')->collection('project')->where('id', $id)->delete();
         return $this->respond('');
     }
 
