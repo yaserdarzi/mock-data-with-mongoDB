@@ -45,7 +45,7 @@ class ProjectController extends ApiController
             );
         $data = $request->all();
         $data['id'] = (string)(DB::connection('mongodb')->collection('project')->count() + 1);
-        return $this->respond(DB::connection('mongodb')->collection('project')->insertGetId($request->all()));
+        return $this->respond(DB::connection('mongodb')->collection('project')->insertGetId($data));
     }
 
     /**

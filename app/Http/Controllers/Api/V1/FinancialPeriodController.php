@@ -45,7 +45,9 @@ class FinancialPeriodController extends ApiController
      */
     public function store(Request $request)
     {
-        return $this->respond(DB::connection('mongodb')->collection('financialPeriod')->insertGetId($request->all()));
+        $data = $request->all();
+        $data['id'] = (string)(DB::connection('mongodb')->collection('financialPeriod')->count() + 1);
+        return $this->respond(DB::connection('mongodb')->collection('financialPeriod')->insertGetId($data));
     }
 
     /**
@@ -56,7 +58,7 @@ class FinancialPeriodController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        return $this->respond(DB::connection('mongodb')->collection('financialPeriod')->where('_id', $id)->first());
+        return $this->respond(DB::connection('mongodb')->collection('financialPeriod')->where('id', $id)->first());
     }
 
     /**
@@ -79,7 +81,7 @@ class FinancialPeriodController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        DB::connection('mongodb')->collection('financialPeriod')->where('_id', $id)->update($request->all());
+        DB::connection('mongodb')->collection('financialPeriod')->where('id', $id)->update($request->all());
         return $this->respond('');
     }
 

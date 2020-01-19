@@ -37,7 +37,9 @@ class DetailAccountTypeController extends ApiController
      */
     public function store(Request $request)
     {
-        return $this->respond(DB::connection('mongodb')->collection('detailAccountType')->insertGetId($request->all()));
+        $data = $request->all();
+        $data['id'] = (string)(DB::connection('mongodb')->collection('detailAccountType')->count() + 1);
+        return $this->respond(DB::connection('mongodb')->collection('detailAccountType')->insertGetId($data));
     }
 
     /**
@@ -48,7 +50,7 @@ class DetailAccountTypeController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        return $this->respond(DB::connection('mongodb')->collection('detailAccountType')->where('_id', $id)->first());
+        return $this->respond(DB::connection('mongodb')->collection('detailAccountType')->where('id', $id)->first());
     }
 
     /**
@@ -71,7 +73,7 @@ class DetailAccountTypeController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        DB::connection('mongodb')->collection('detailAccountType')->where('_id', $id)->update($request->all());
+        DB::connection('mongodb')->collection('detailAccountType')->where('id', $id)->update($request->all());
         return $this->respond('');
     }
 

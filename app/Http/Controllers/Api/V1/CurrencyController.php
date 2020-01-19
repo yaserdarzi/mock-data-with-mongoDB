@@ -46,7 +46,9 @@ class CurrencyController extends ApiController
      */
     public function store(Request $request)
     {
-        return $this->respond(DB::connection('mongodb')->collection('currency')->insertGetId($request->all()));
+        $data = $request->all();
+        $data['id'] = (string)(DB::connection('mongodb')->collection('currency')->count() + 1);
+        return $this->respond(DB::connection('mongodb')->collection('currency')->insertGetId($data));
     }
 
     /**
@@ -57,7 +59,7 @@ class CurrencyController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        return $this->respond(DB::connection('mongodb')->collection('currency')->where('_id', $id)->first());
+        return $this->respond(DB::connection('mongodb')->collection('currency')->where('id', $id)->first());
     }
 
     /**
@@ -80,7 +82,7 @@ class CurrencyController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        DB::connection('mongodb')->collection('currency')->where('_id', $id)->update($request->all());
+        DB::connection('mongodb')->collection('currency')->where('id', $id)->update($request->all());
         return $this->respond('');
     }
 

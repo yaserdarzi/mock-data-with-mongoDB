@@ -43,7 +43,9 @@ class GeolocationController extends ApiController
                 ApiException::EXCEPTION_BAD_REQUEST_400,
                 'کاربر گرامی کد تکراری می باشد'
             );
-        return $this->respond(DB::connection('mongodb')->collection('geolocation')->insertGetId($request->all()));
+        $data = $request->all();
+        $data['id'] = (string)(DB::connection('mongodb')->collection('geolocation')->count() + 1);
+        return $this->respond(DB::connection('mongodb')->collection('geolocation')->insertGetId($data));
     }
 
     /**
@@ -54,7 +56,7 @@ class GeolocationController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        return $this->respond(DB::connection('mongodb')->collection('geolocation')->where('_id', $id)->first());
+        return $this->respond(DB::connection('mongodb')->collection('geolocation')->where('id', $id)->first());
     }
 
     /**
@@ -77,12 +79,12 @@ class GeolocationController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (DB::connection('mongodb')->collection('geolocation')->where('_id', '!=', $id)->where('code', $request->input('code'))->exists())
+        if (DB::connection('mongodb')->collection('geolocation')->where('id', '!=', $id)->where('code', $request->input('code'))->exists())
             throw new ApiException(
                 ApiException::EXCEPTION_BAD_REQUEST_400,
                 'کاربر گرامی کد تکراری می باشد'
             );
-        DB::connection('mongodb')->collection('geolocation')->where('_id', $id)->update($request->all());
+        DB::connection('mongodb')->collection('geolocation')->where('id', $id)->update($request->all());
         return $this->respond('');
     }
 
@@ -94,7 +96,7 @@ class GeolocationController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        DB::connection('mongodb')->collection('geolocation')->where('_id', $id)->delete();
+        DB::connection('mongodb')->collection('geolocation')->where('id', $id)->delete();
         return $this->respond('');
     }
 

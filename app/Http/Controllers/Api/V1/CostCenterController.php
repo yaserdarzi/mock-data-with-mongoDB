@@ -43,7 +43,9 @@ class CostCenterController extends ApiController
                 ApiException::EXCEPTION_BAD_REQUEST_400,
                 'کاربر گرامی کد تکراری می باشد'
             );
-        return $this->respond(DB::connection('mongodb')->collection('costCenter')->insertGetId($request->all()));
+        $data = $request->all();
+        $data['id'] = (string)(DB::connection('mongodb')->collection('costCenter')->count() + 1);
+        return $this->respond(DB::connection('mongodb')->collection('costCenter')->insertGetId($data));
     }
 
     /**
@@ -54,7 +56,7 @@ class CostCenterController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        return $this->respond(DB::connection('mongodb')->collection('costCenter')->where('_id', $id)->first());
+        return $this->respond(DB::connection('mongodb')->collection('costCenter')->where('id', $id)->first());
     }
 
     /**
@@ -77,12 +79,12 @@ class CostCenterController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (DB::connection('mongodb')->collection('costCenter')->where('_id', '!=', $id)->where('code', $request->input('code'))->exists())
+        if (DB::connection('mongodb')->collection('costCenter')->where('id', '!=', $id)->where('code', $request->input('code'))->exists())
             throw new ApiException(
                 ApiException::EXCEPTION_BAD_REQUEST_400,
                 'کاربر گرامی کد تکراری می باشد'
             );
-        DB::connection('mongodb')->collection('costCenter')->where('_id', $id)->update($request->all());
+        DB::connection('mongodb')->collection('costCenter')->where('id', $id)->update($request->all());
         return $this->respond('');
     }
 
